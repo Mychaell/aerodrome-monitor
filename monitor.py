@@ -50,17 +50,17 @@ NFPM_ABI = [
             {"internalType": "uint256", "name": "feeGrowthInside1LastX128",    "type": "uint256"},
             {"internalType": "uint128", "name": "tokensOwed0",                 "type": "uint128"},
             {"internalType": "uint128", "name": "tokensOwed1",                 "type": "uint128"},
-            ,{
+        ],
+        "stateMutability": "view",
+        "type": "function",
+    },
+    {
         "inputs": [],
         "name": "factory",
         "outputs": [{"internalType": "address", "name": "", "type": "address"}],
         "stateMutability": "view",
-        "type": "function"
-    }
-        ],
-        "stateMutability": "view",
         "type": "function",
-    }
+    },
 ]
 
 FACTORY_ABI = [
