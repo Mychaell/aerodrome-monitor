@@ -1,46 +1,31 @@
-name: Aerodrome Position Monitor
-
+name: Aerodrome Monitor
 on:
-  schedule:
-    - cron: '*/10 * * * *'
   workflow_dispatch:
-
 permissions:
   contents: write
-
 jobs:
   monitor:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repo
-        uses: actions/checkout@v4
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Set up Python 3.11
-        uses: actions/setup-python@v5
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-          cache: 'pip'
-
-      - name: Install dependencies
-        run: pip install -r requirements.txt
-
+      - run: pip install -r requirements.txt
       - name: Run monitor
         env:
-          BASE_RPC_URL:                ${{ secrets.BASE_RPC_URL }}
-          TELEGRAM_BOT_TOKEN:          ${{ secrets.TELEGRAM_BOT_TOKEN }}
-          TELEGRAM_CHAT_ID:            ${{ secrets.TELEGRAM_CHAT_ID }}
-          POSITION_TOKEN_ID:           ${{ vars.POSITION_TOKEN_ID }}
-          BALANCE_DROP_THRESHOLD_PCT:  ${{ vars.BALANCE_DROP_THRESHOLD_PCT }}
-          INITIAL_VALUE_USD:           ${{ vars.INITIAL_VALUE_USD }}
-          ALERT_COOLDOWN_HOURS:        ${{ vars.ALERT_COOLDOWN_HOURS }}
+          BASE_RPC_URL: ${{ secrets.BASE_RPC_URL }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          POSITION_TOKEN_ID: ${{ vars.POSITION_TOKEN_ID }}
+          BALANCE_DROP_THRESHOLD_PCT: ${{ vars.BALANCE_DROP_THRESHOLD_PCT }}
+          INITIAL_VALUE_USD: ${{ vars.INITIAL_VALUE_USD }}
+          ALERT_COOLDOWN_HOURS: ${{ vars.ALERT_COOLDOWN_HOURS }}
         run: python monitor.py
-
-      - name: Commit updated state
+      - name: Commit state
         run: |
-          git config user.name "aerodrome-monitor[bot]"
-          git config user.email "aerodrome-monitor[bot]@users.noreply.github.com"
+          git config user.name "bot"
+          git config user.email "bot@bot.com"
           git add state.json
-          git diff --staged --quiet || git commit -m "chore: update monitor state [skip ci]"
+          git diff --staged --quiet || git commit -m "update state [skip ci]"
           git push
