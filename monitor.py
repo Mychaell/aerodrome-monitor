@@ -29,7 +29,7 @@ STATE_FILE   = "state.json"
 # ── Aerodrome Base Contracts ────────────────────────────────────────────────
 # Double-check these at https://velodrome.finance/security or Aerodrome GitHub
 # Aerodrome is a Velodrome v2 fork — CL uses Uniswap v3-style position NFTs
-NFPM_ADDR    = Web3.to_checksum_address("0x827922686190790b37229fd06084350e74485b72")
+NFPM_ADDR    = Web3.to_checksum_address("0xe1f8cd9AC4e4A65F54f38a5CdAfCA44f6dD68b53")
 FACTORY_ADDR = Web3.to_checksum_address("0x5e7BB104d84c7CB9B682AaC2F3d509f5F406809A")
 
 # ── Minimal ABIs ────────────────────────────────────────────────────────────
@@ -50,6 +50,13 @@ NFPM_ABI = [
             {"internalType": "uint256", "name": "feeGrowthInside1LastX128",    "type": "uint256"},
             {"internalType": "uint128", "name": "tokensOwed0",                 "type": "uint128"},
             {"internalType": "uint128", "name": "tokensOwed1",                 "type": "uint128"},
+            ,{
+        "inputs": [],
+        "name": "factory",
+        "outputs": [{"internalType": "address", "name": "", "type": "address"}],
+        "stateMutability": "view",
+        "type": "function"
+    }
         ],
         "stateMutability": "view",
         "type": "function",
@@ -192,7 +199,8 @@ def main():
     print(f"  Position #{TOKEN_ID}: {sym0}/{sym1} | tickSpacing={tick_spacing}")
 
     # Resolve pool and get current tick
-    factory   = w3.eth.contract(address=FACTORY_ADDR, abi=FACTORY_ABI)
+    FACTORY_ADDR = nfpm.functions.factory().call()
+    factory = w3.eth.contract(address=FACTORY_ADDR, abi=FACTORY_ABI)
     pool_addr = factory.functions.getPool(token0, token1, tick_spacing).call()
     pool      = w3.eth.contract(address=Web3.to_checksum_address(pool_addr), abi=POOL_ABI)
     slot0     = pool.functions.slot0().call()
