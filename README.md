@@ -134,3 +134,4 @@ state.json (committed back to repo)
 | `Cannot connect to Base RPC` | Try replacing with `https://mainnet.base.org` |
 | No Telegram message | Verify bot token and chat ID; make sure you messaged the bot first |
 | Wrong token amounts | Verify NFPM contract address against Aerodrome's current docs |
+# Aerodrome CL Monitor
