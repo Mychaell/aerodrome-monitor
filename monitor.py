@@ -29,7 +29,7 @@ STATE_FILE   = "state.json"
 # ── Aerodrome Base Contracts ────────────────────────────────────────────────
 # Double-check these at https://velodrome.finance/security or Aerodrome GitHub
 # Aerodrome is a Velodrome v2 fork — CL uses Uniswap v3-style position NFTs
-NFPM_ADDR    = Web3.to_checksum_address("0xe1f8cd9AC4e4A65F54f38a5CdAfCA44f6dD68b53")
+NFPM_ADDR    = Web3.to_checksum_address("0xa990C6a764b73BF43cee5Bb40339c3322FB9D55F")
 FACTORY_ADDR = Web3.to_checksum_address("0x5e7BB104d84c7CB9B682AaC2F3d509f5F406809A")
 
 # ── Minimal ABIs ────────────────────────────────────────────────────────────
